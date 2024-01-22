@@ -34,8 +34,7 @@ workingDay.forEach(function (timeBlock, index) {
   $(".container").append(row);
 });
 
-//Color Rows Utiliza dayjs() para obtener la fecha y hora actual
-//It's on screen but I have to look for storage icon.
+//Color Rows 
 function colorRow(time) {
   var now = dayjs();
   var planEntry = dayjs(time, "H A");
