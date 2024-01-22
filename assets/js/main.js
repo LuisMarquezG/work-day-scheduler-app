@@ -49,4 +49,10 @@ function colorRow(time) {
   }
 };
 
-//Dont forget to set local storage.
+//Local Storage
+var workingEvents = JSON.parse(localstorage.getItem("workDay"));
+if (workingEvents) {
+  workingDay = workingEvents
+}
+
+//Save events
