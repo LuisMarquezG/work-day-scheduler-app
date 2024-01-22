@@ -15,12 +15,6 @@ var workingDay = [
   { time: "05:00 pm", event: "" }
 ];
 
-//Local Storage
-var workingEvents = JSON.parse(localstorage.getItem("workDay"));
-if (workingEvents) {
-  workingDay = workingEvents
-}
-
 //Rows (using bootstrap)
 workingDay.forEach(function (timeBlock, index) {
   var timeLabel = timeBlock.time;
@@ -55,14 +49,20 @@ function colorRow(time) {
   }
 };
 
-//Save events
+//Local Storage
+var workingEvents = JSON.parse(localStorage.getItem("workDay"));
+if (workingEvents) {
+  workingDay = workingEvents
+}
+
+//Save Events
 $(".saveBtn").on("click", function () {
+  // console.log("Save button clicked"); for testing that the button is working properly
   var blockID = parseInt(
     $(this)
       .closest(".time-block")
       .attr("id")
   );
-
   var userEntry = $.trim(
     $(this)
       .parent()
@@ -71,6 +71,6 @@ $(".saveBtn").on("click", function () {
   );
   workingDay[blockID].event = userEntry;
 
-  //Set local storage
+  // Set local storage 
   localStorage.setItem("workDay", JSON.stringify(workingDay));
 });
