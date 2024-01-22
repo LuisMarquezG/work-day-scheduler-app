@@ -15,6 +15,12 @@ var workingDay = [
   { time: "05:00 pm", event: "" }
 ];
 
+//Local Storage
+var workingEvents = JSON.parse(localstorage.getItem("workDay"));
+if (workingEvents) {
+  workingDay = workingEvents
+}
+
 //Rows (using bootstrap)
 workingDay.forEach(function (timeBlock, index) {
   var timeLabel = timeBlock.time;
@@ -49,10 +55,22 @@ function colorRow(time) {
   }
 };
 
-//Local Storage
-var workingEvents = JSON.parse(localstorage.getItem("workDay"));
-if (workingEvents) {
-  workingDay = workingEvents
-}
-
 //Save events
+$(".saveBtn").on("click", function () {
+  var blockID = parseInt(
+    $(this)
+      .closest(".time-block")
+      .attr("id")
+  );
+
+  var userEntry = $.trim(
+    $(this)
+      .parent()
+      .siblings("textarea")
+      .val()
+  );
+  workingDay[blockID].event = userEntry;
+
+  //Set local storage
+  localStorage.setItem("workDay", JSON.stringify(workingDay));
+});
